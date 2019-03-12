@@ -9,4 +9,19 @@
 ## test
 Tested on windows 10 , node.js
 
+## API
+Refer to index.js
 
+`
+LEDPanel.updateText(
+  'Hello World\nWorld Peace\n012345678901', // or Buffer instead
+    {
+      entry: DEFLED.TEXT_PROGRAM.ENTRY.LEFT_RIGHT_SPREAD,
+      spentry: 0x02,
+      duentry: 0x01f4, // 5 seconds
+      exit: 0x0001,
+      format: DEFLED.TEXT_PROGRAM.FORMAT.THREE_LINES
+    },
+    callback
+)
+`
