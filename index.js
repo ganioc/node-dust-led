@@ -15,7 +15,7 @@ led.init() // Initialization
 
 function work1() {
   led.updateText(
-    'hello world\nworld peace\n012345678901',
+    'Hello World\nWorld Peace\n012345678901',
     {
       entry: DEFLED.TEXT_PROGRAM.ENTRY.LEFT_RIGHT_SPREAD,
       spentry: 0x02,
