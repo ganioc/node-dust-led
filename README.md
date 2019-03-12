@@ -5,6 +5,7 @@
 - Update chinese GB2312 code to defled.js file, the program won't transform utf-8 characters; use hex code directly in the program
 
 - font family will determine it's 3 lines display or 4 lines display
+- 需提前对led版进行控制，将小号字体（4行）设为2号字体
 
 ## test
 Tested on windows 10 , node.js

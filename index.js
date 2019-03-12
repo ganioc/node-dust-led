@@ -3,13 +3,15 @@
 var LEDPanel = require('./lib/zkled').LEDPanel
 var DEFLED = require('./lib/zkled/defled')
 var FACILITY = require('./lib/zkled/facility')
+var SerialPort = require('serialport')
+
+var mPort = new SerialPort('\\\\.\\COM14', {
+  baudRate: 115200
+})
 
 var led = new LEDPanel({
-  baudRate: 115200,
-  // path: '/dev/tty.usbserial',
-  path: '\\\\.\\COM14',
   timeout: 3000,
-  port: '' // put your port object here
+  port: mPort // put your port object here
 })
 
 led.init() // Initialization
