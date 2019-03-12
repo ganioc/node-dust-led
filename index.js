@@ -8,22 +8,22 @@ var led = new LEDPanel({
   baudRate: 115200,
   // path: '/dev/tty.usbserial',
   path: '\\\\.\\COM14',
-  timeout: 3000
+  timeout: 3000,
+  port: '' // put your port object here
 })
 
 led.init() // Initialization
 
 function work1() {
   led.updateText(
-    'Hello World\nWorld Peace\n012345678901',
-    {
+    'Hello World\nWorld Peace\n012345678901', {
       entry: DEFLED.TEXT_PROGRAM.ENTRY.LEFT_RIGHT_SPREAD,
       spentry: 0x02,
       duentry: 0x01f4, // 5 seconds
       exit: 0x0001,
       format: DEFLED.TEXT_PROGRAM.FORMAT.THREE_LINES
     },
-    function(err, data) {
+    function (err, data) {
       if (err) {
         console.log('error:', err)
       } else {
@@ -53,15 +53,14 @@ var buf2 = FACILITY.concatBuffers(
 
 function work2() {
   led.updateText(
-    buf2,
-    {
+    buf2, {
       entry: DEFLED.TEXT_PROGRAM.ENTRY.LEFT_RIGHT_SPREAD,
       spentry: 0x02,
       duentry: 0x01f4, // 5 seconds
       exit: 0x0001,
       format: DEFLED.TEXT_PROGRAM.FORMAT.FOUR_LINES
     },
-    function(err, data) {
+    function (err, data) {
       if (err) {
         console.log('error:', err)
       } else {
@@ -80,15 +79,14 @@ var buf3 = FACILITY.concatBuffers(
 
 function work3() {
   led.updateText(
-    buf3,
-    {
+    buf3, {
       entry: DEFLED.TEXT_PROGRAM.ENTRY.ENTER_TO_LEFT,
       spentry: 0x02,
       duentry: 0x01f4, // 5 seconds
       exit: 0x0001,
       format: DEFLED.TEXT_PROGRAM.FORMAT.THREE_LINES
     },
-    function(err, data) {
+    function (err, data) {
       if (err) {
         console.log('error:', err)
       } else {
@@ -106,12 +104,12 @@ function showText() {
   works[i]()
 }
 
-setTimeout(function() {
+setTimeout(function () {
   showText()
   i++
 }, 5000)
 
-setInterval(function() {
+setInterval(function () {
   showText()
   i++
   if (i >= works.length) {
