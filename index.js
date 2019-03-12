@@ -15,63 +15,85 @@ led.init() // Initialization
 
 function work1() {
   led.updateText(
-    'hello world temp\nworld\nand!\npeace 0123456789', {
+    'hello world\nworld peace\n012345678901',
+    {
       entry: DEFLED.TEXT_PROGRAM.ENTRY.LEFT_RIGHT_SPREAD,
       spentry: 0x02,
       duentry: 0x01f4, // 5 seconds
       exit: 0x0001,
-      format: DEFLED.TEXT_PROGRAM.FORMAT.FOUR_LINES
+      format: DEFLED.TEXT_PROGRAM.FORMAT.THREE_LINES
     },
-    function (err, data) {
+    function(err, data) {
       if (err) {
         console.log('error:', err)
       } else {
-        console.log('rx:', data)
+        console.log('\nrx:', data)
       }
     }
   )
 }
 // Display temperature, Display wind
 // diplay ruff logo
-var buf2 = FACILITY.concatBuffers(DEFLED.GB.temp, Buffer.from(':36.8'),
-  DEFLED.GB.degree, DEFLED.GB.cr, DEFLED.GB.east, DEFLED.GB.wind, Buffer.from('-'), DEFLED.GB.windstrength, Buffer.from(':5'), DEFLED.GB.level, DEFLED.GB.cr, Buffer.from('God bless you!'), DEFLED.GB.cr, Buffer.from('Nanchao.org'))
+var buf2 = FACILITY.concatBuffers(
+  DEFLED.GB.temp,
+  Buffer.from(':36.8'),
+  DEFLED.GB.degree,
+  DEFLED.GB.cr,
+  DEFLED.GB.east,
+  DEFLED.GB.wind,
+  Buffer.from('-'),
+  DEFLED.GB.windstrength,
+  Buffer.from(':5'),
+  DEFLED.GB.level,
+  DEFLED.GB.cr,
+  Buffer.from('God bless you!'),
+  DEFLED.GB.cr,
+  Buffer.from('Nanchao.org')
+)
 
 function work2() {
   led.updateText(
-    buf2, {
+    buf2,
+    {
       entry: DEFLED.TEXT_PROGRAM.ENTRY.LEFT_RIGHT_SPREAD,
       spentry: 0x02,
       duentry: 0x01f4, // 5 seconds
       exit: 0x0001,
       format: DEFLED.TEXT_PROGRAM.FORMAT.FOUR_LINES
     },
-    function (err, data) {
+    function(err, data) {
       if (err) {
         console.log('error:', err)
       } else {
-        console.log('rx:', data)
+        console.log('\nrx:', data)
       }
     }
   )
 }
-var buf3 = FACILITY.concatBuffers(DEFLED.GB.txtNanchao, DEFLED.GB.cr, DEFLED.GB.txtCompanyDEFLED.GB.cr, Buffer.from('2019-3-12'))
+var buf3 = FACILITY.concatBuffers(
+  DEFLED.GB.txtNanchao,
+  DEFLED.GB.cr,
+  DEFLED.GB.txtCompany,
+  DEFLED.GB.cr,
+  Buffer.from('2019-3-12')
+)
 
 function work3() {
   led.updateText(
-    buf3, {
+    buf3,
+    {
       entry: DEFLED.TEXT_PROGRAM.ENTRY.ENTER_TO_LEFT,
       spentry: 0x02,
       duentry: 0x01f4, // 5 seconds
       exit: 0x0001,
       format: DEFLED.TEXT_PROGRAM.FORMAT.THREE_LINES
     },
-    function (err, data) {
+    function(err, data) {
       if (err) {
         console.log('error:', err)
       } else {
-        console.log('rx:', data)
+        console.log('\nrx:', data)
       }
-      led.close()
     }
   )
 }
@@ -80,12 +102,17 @@ var i = 0
 
 var works = [work1, work2, work3]
 
-function showText(num) {
-  works[num]()
+function showText() {
+  works[i]()
 }
 
-setInterval(function () {
-  showText(i)
+setTimeout(function() {
+  showText()
+  i++
+}, 5000)
+
+setInterval(function() {
+  showText()
   i++
   if (i >= works.length) {
     i = 0
