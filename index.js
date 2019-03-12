@@ -15,15 +15,14 @@ led.init() // Initialization
 
 function work1() {
   led.updateText(
-    'hello world temp\nworld\nand!\npeace 0123456789',
-    {
+    'hello world temp\nworld\nand!\npeace 0123456789', {
       entry: DEFLED.TEXT_PROGRAM.ENTRY.LEFT_RIGHT_SPREAD,
       spentry: 0x02,
       duentry: 0x01f4, // 5 seconds
       exit: 0x0001,
       format: DEFLED.TEXT_PROGRAM.FORMAT.FOUR_LINES
     },
-    function(err, data) {
+    function (err, data) {
       if (err) {
         console.log('error:', err)
       } else {
@@ -34,18 +33,19 @@ function work1() {
 }
 // Display temperature, Display wind
 // diplay ruff logo
-var buf = FACILITY.concatBuffers(DEFLED.GB.temp, Buffer.from(':36.8'))
+var buf2 = FACILITY.concatBuffers(DEFLED.GB.temp, Buffer.from(':36.8'),
+  DEFLED.GB.degree, DEFLED.GB.cr, DEFLED.GB.east, DEFLED.GB.wind, Buffer.from('-'), DEFLED.GB.windstrength, Buffer.from(':5'), DEFLED.GB.level, DEFLED.GB.cr, Buffer.from('God bless you!'), DEFLED.GB.cr, Buffer.from('Nanchao.org'))
+
 function work2() {
   led.updateText(
-    buf,
-    {
+    buf2, {
       entry: DEFLED.TEXT_PROGRAM.ENTRY.LEFT_RIGHT_SPREAD,
       spentry: 0x02,
       duentry: 0x01f4, // 5 seconds
       exit: 0x0001,
       format: DEFLED.TEXT_PROGRAM.FORMAT.FOUR_LINES
     },
-    function(err, data) {
+    function (err, data) {
       if (err) {
         console.log('error:', err)
       } else {
@@ -54,17 +54,18 @@ function work2() {
     }
   )
 }
+var buf3 = FACILITY.concatBuffers(DEFLED.GB.txtNanchao, DEFLED.GB.cr, DEFLED.GB.txtCompanyDEFLED.GB.cr, Buffer.from('2019-3-12'))
+
 function work3() {
   led.updateText(
-    'hello world temp\nworld\nand!\npeace',
-    {
-      entry: DEFLED.TEXT_PROGRAM.ENTRY.LEFT_RIGHT_SPREAD,
+    buf3, {
+      entry: DEFLED.TEXT_PROGRAM.ENTRY.ENTER_TO_LEFT,
       spentry: 0x02,
       duentry: 0x01f4, // 5 seconds
       exit: 0x0001,
-      format: DEFLED.TEXT_PROGRAM.FORMAT.FOUR_LINES
+      format: DEFLED.TEXT_PROGRAM.FORMAT.THREE_LINES
     },
-    function(err, data) {
+    function (err, data) {
       if (err) {
         console.log('error:', err)
       } else {
@@ -74,35 +75,16 @@ function work3() {
     }
   )
 }
-function work4() {
-  led.updateText(
-    'hello world temp\nworld\nand!\npeace',
-    {
-      entry: DEFLED.TEXT_PROGRAM.ENTRY.LEFT_RIGHT_SPREAD,
-      spentry: 0x02,
-      duentry: 0x01f4, // 5 seconds
-      exit: 0x0001,
-      format: DEFLED.TEXT_PROGRAM.FORMAT.FOUR_LINES
-    },
-    function(err, data) {
-      if (err) {
-        console.log('error:', err)
-      } else {
-        console.log('rx:', data)
-      }
-      led.close()
-    }
-  )
-}
+
 var i = 0
 
-var works = [work1, work2, work3, work4]
+var works = [work1, work2, work3]
 
 function showText(num) {
   works[num]()
 }
 
-setInterval(function() {
+setInterval(function () {
   showText(i)
   i++
   if (i >= works.length) {
