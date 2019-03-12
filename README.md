@@ -12,7 +12,9 @@ Tested on windows 10 , node.js
 ## API
 Refer to index.js
 
-`
+```
+// example
+
 LEDPanel.updateText(
   'Hello World\nWorld Peace\n012345678901', // or Buffer instead
     {
@@ -24,4 +26,5 @@ LEDPanel.updateText(
     },
     callback
 )
-`
+
+```
